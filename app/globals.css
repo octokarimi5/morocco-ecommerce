@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #fff9f0;
+  --color-primary-100: #fef0d8;
+  --color-primary-400: #f4c278;
+  --color-primary-500: #ecb061; /* The Lueur Premium Gold */
+  --color-primary-600: #d99a4c;
+  --color-primary-700: #b47a32;
+
+  --color-background: #f8fafc; /* slate-50 */
+  --color-surface: #ffffff;
+  --color-destructive: #ef4444;
+  --color-success: #10b981;
+  
+  --color-navy: #0f172a; /* slate-900 */
+
+  --font-display: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+body {
+  background-color: var(--color-background);
+  color: #334155; /* slate-700 (darker for crisper contrast) */
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--color-navy);
+}
+
+html {
+  scroll-behavior: smooth;
+}
