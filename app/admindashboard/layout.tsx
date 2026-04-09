@@ -9,7 +9,14 @@ import { LayoutDashboard, Users, Settings, LogOut } from "lucide-react";
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname.includes('/settings')) {
+      setSettingsOpen(true);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -58,7 +65,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const nav = [
     { name: "الطلبات", path: "/admindashboard", icon: <LayoutDashboard size={20} /> },
     { name: "العملاء / ההלידים", path: "/admindashboard/leads", icon: <Users size={20} /> },
-    { name: "الإعدادات", path: "/admindashboard/settings", icon: <Settings size={20} /> },
+    { 
+      name: "الإعدادات", icon: <Settings size={20} />, 
+      subItems: [
+        { name: "تعديل المحتوى", path: "/admindashboard/settings/content" },
+        { name: "إعدادات البيكسل", path: "/admindashboard/settings/pixels" }
+      ] 
+    },
   ];
 
   return (
@@ -67,15 +80,42 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside className="w-64 bg-slate-900 text-white p-6 flex-col hidden md:flex border-l border-slate-800">
         <h1 className="text-2xl font-black font-display mb-10 tracking-widest text-primary-400">ARWA<span className="text-white">.</span></h1>
         <nav className="flex-1 space-y-3 mt-4">
-          {nav.map(item => (
-            <Link 
-              key={item.path} 
-              href={item.path}
-              className={`flex items-center gap-3 px-5 py-4 rounded-2xl font-bold transition-all ${pathname === item.path ? 'bg-primary-500 text-slate-900 shadow-md' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
-            >
-              <div className="ml-2">{item.icon}</div> 
-              {item.name}
-            </Link>
+          {nav.map((item, i) => (
+            item.subItems ? (
+              <div key={i} className="flex flex-col">
+                <button 
+                  onClick={() => setSettingsOpen(!settingsOpen)}
+                  className={`flex items-center justify-between px-5 py-4 rounded-2xl font-bold transition-all ${pathname.includes('/settings') ? 'bg-slate-800 text-white shadow-md' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="ml-2">{item.icon}</div> 
+                    {item.name}
+                  </div>
+                </button>
+                {settingsOpen && (
+                  <div className="flex flex-col mt-2 pr-4 space-y-2">
+                    {item.subItems.map(sub => (
+                      <Link 
+                        key={sub.path} 
+                        href={sub.path}
+                        className={`flex items-center px-4 py-3 rounded-xl font-bold transition-all ${pathname === sub.path ? 'bg-primary-500 text-slate-900 shadow-sm' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}
+                      >
+                        {sub.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link 
+                key={item.path} 
+                href={item.path!}
+                className={`flex items-center gap-3 px-5 py-4 rounded-2xl font-bold transition-all ${pathname === item.path ? 'bg-primary-500 text-slate-900 shadow-md' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
+              >
+                <div className="ml-2">{item.icon}</div> 
+                {item.name}
+              </Link>
+            )
           ))}
         </nav>
         <button 

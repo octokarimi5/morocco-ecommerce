@@ -4,26 +4,9 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
-const faqs = [
-  {
-    q: "Comment puis-je payer ma commande ?",
-    a: "Nous n'acceptons que le paiement à la livraison (Cash on Delivery). Vous ne payez rien en ligne, vous réglez le livreur en espèces une fois votre produit reçu."
-  },
-  {
-    q: "Quels sont les délais de livraison ?",
-    a: "La livraison prend généralement 24 à 48 heures ouvrables pour les grandes villes (Casablanca, Rabat, Marrakech...) et jusqu'à 72h pour les autres régions."
-  },
-  {
-    q: "Ce téléphone supporte-t-il WhatsApp ?",
-    a: "Non, le Nokia 105 est un téléphone basique conçu pour la durabilité et les appels. Les écouteurs Bluetooth en revanche se connectent à n'importe quel smartphone moderne abordant le Bluetooth."
-  },
-  {
-    q: "Puis-je retourner le produit si je ne suis pas satisfait ?",
-    a: "Absolument ! Nous offrons une garantie de satisfaction de 30 jours contre les défauts de fabrication avec un remplacement gratuit."
-  }
-];
-
+import { useStoreContent } from "@/components/StoreProvider";
 export default function FAQ() {
+  const content = useStoreContent();
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   return (
@@ -32,12 +15,12 @@ export default function FAQ() {
         
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 font-display mb-4">
-            Questions Fréquentes
+            {content.faqTitle}
           </h2>
         </div>
 
         <div className="space-y-4">
-          {faqs.map((faq, idx) => (
+          {content.faqs.map((faq, idx) => (
             <div key={idx} className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
               <button 
                 onClick={() => setOpenIdx(openIdx === idx ? null : idx)}

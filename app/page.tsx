@@ -19,8 +19,8 @@ const WhatsAppIcon = () => (
 );
 
 export default function Home() {
-  const [selectedOffer, setSelectedOffer] = useState(productData.offers[1].id);
   const content = useStoreContent();
+  const [selectedOffer, setSelectedOffer] = useState(content.offers[1].id);
 
   return (
     <main className="min-h-screen bg-slate-50 relative flex flex-col pt-10">
@@ -89,7 +89,7 @@ export default function Home() {
          <div className="flex flex-col">
            <span className="text-xs text-slate-500 font-black uppercase tracking-wider">Total</span>
            <span className="font-black text-slate-900 text-2xl tracking-tighter">
-             {productData.offers.find(o => o.id === selectedOffer)?.price} <span className="text-sm">MAD</span>
+             {content.offers.find(o => o.id === selectedOffer)?.price} <span className="text-sm">MAD</span>
            </span>
          </div>
          <button 

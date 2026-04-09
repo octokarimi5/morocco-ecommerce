@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { productData } from "@/lib/data";
+import { useStoreContent } from "@/components/StoreProvider";
 import { Battery, Smartphone, Headphones, Shield } from "lucide-react";
 
 const getIcon = (iconName: string) => {
@@ -15,21 +15,22 @@ const getIcon = (iconName: string) => {
 };
 
 export default function Benefits() {
+  const content = useStoreContent();
   return (
     <section className="py-24 md:py-32 bg-slate-900 relative text-white border-t-8 border-b-8 border-black shadow-[inset_0_20px_60px_rgba(0,0,0,0.5)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         
         <div className="text-center max-w-4xl mx-auto mb-20 lg:mb-28">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black font-display mb-6 tracking-tight leading-[1.1]">
-            Tout ce dont vous avez besoin, <span className="text-primary-500">rien de plus.</span>
+            {content.benefitsTitle}
           </h2>
           <p className="text-xl lg:text-2xl text-slate-400 font-bold">
-            Un combo parfait alliant l'indestructibilité du classique et l'expérience du sans-fil.
+            {content.benefitsSubtitle}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {productData.features.map((feature, idx) => (
+          {content.features.map((feature, idx) => (
             <motion.div 
               key={idx}
               initial={{ opacity: 0, y: 50, filter: "blur(12px)", scale: 0.95 }}

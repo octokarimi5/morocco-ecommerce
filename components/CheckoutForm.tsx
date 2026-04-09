@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { productData } from "@/lib/data";
+import { useStoreContent } from "@/components/StoreProvider";
 import { Truck, ShieldCheck, ChevronRight, Flame } from "lucide-react";
 import { createOrder } from "@/app/actions/orders";
 
@@ -11,11 +11,12 @@ interface CheckoutFormProps {
 }
 
 export default function CheckoutForm({ selectedOfferId, setSelectedOfferId }: CheckoutFormProps) {
+  const content = useStoreContent();
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [orderRef, setOrderRef] = useState("");
   
-  const selectedOffer = productData.offers.find(o => o.id === selectedOfferId) || productData.offers[0];
+  const selectedOffer = content.offers.find(o => o.id === selectedOfferId) || content.offers[0];
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -81,7 +82,7 @@ export default function CheckoutForm({ selectedOfferId, setSelectedOfferId }: Ch
               </h3>
               
               <div className="flex flex-col gap-4">
-                {productData.offers.map(offer => (
+                {content.offers.map(offer => (
                    <div 
                      key={offer.id} 
                      onClick={() => setSelectedOfferId(offer.id)}

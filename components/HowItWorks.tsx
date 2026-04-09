@@ -3,30 +3,7 @@
 import { motion, Variants } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 
-const steps = [
-  {
-    id: 1,
-    title: "Un Téléphone Indestructible",
-    description: "Le Nokia 105 est conçu pour durer. Avec sa batterie longue durée, restez connecté pendant des jours sans avoir à recharger. Idéal pour ceux qui cherchent la fiabilité absolue au quotidien, que ce soit pour le travail ou l'aventure.",
-    image: "https://images.unsplash.com/photo-1549420078-4db8a2b5eab6?q=80&w=800&auto=format&fit=crop", 
-    badge: "Fiabilité Légendaire"
-  },
-  {
-    id: 2,
-    title: "Le Son Sans Fil Parfait",
-    description: "Associez votre téléphone avec les écouteurs sans fil M10 inclus. Profitez d'une qualité sonore exceptionnelle, d'une connexion Bluetooth ultra-stable, et d'un boîtier de charge qui sert aussi de batterie externe en cas de besoin.",
-    image: "https://images.unsplash.com/photo-1606220588913-b3a58eeb01f1?q=80&w=800&auto=format&fit=crop", 
-    badge: "Technologie Bluetooth"
-  },
-  {
-    id: 3,
-    title: "Le Duo Infaillible",
-    description: "Pourquoi choisir entre le classique et le moderne ? Ce pack exclusif vous offre le meilleur des deux mondes. Un téléphone de secours ultra-résistant et des écouteurs tactiles de dernière génération, prêts à affronter votre journée.",
-    image: "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=800&auto=format&fit=crop", 
-    badge: "Offre Premium"
-  }
-];
-
+import { useStoreContent } from "@/components/StoreProvider";
 // Premium Lueur-style entry variants
 const revealVariants: Variants = {
   hidden: { opacity: 0, y: 50, filter: "blur(10px)", scale: 1.05 },
@@ -40,6 +17,7 @@ const revealVariants: Variants = {
 };
 
 export default function HowItWorks() {
+  const content = useStoreContent();
   return (
     <section className="bg-white relative overflow-hidden" id="details">
       
@@ -67,10 +45,10 @@ export default function HowItWorks() {
         
         <div className="text-center flex flex-col items-center mb-24">
           <h2 className="text-4xl md:text-6xl font-black text-slate-900 font-display mb-6 tracking-tight">
-            Découvrez ce qui le rend <span className="text-primary-500">unique.</span>
+            {content.howItWorksTitle}
           </h2>
           <p className="text-xl text-slate-500 font-bold max-w-2xl mx-auto leading-relaxed mb-10">
-            L'alliance parfaite entre l'ergonomie classique du Nokia et la puissance sans fil de la technologie M10.
+            {content.howItWorksSubtitle}
           </p>
 
           <motion.div
@@ -90,7 +68,7 @@ export default function HowItWorks() {
         </div>
 
         <div className="space-y-32">
-          {steps.map((step, index) => {
+          {content.steps.map((step, index) => {
             const isEven = index % 2 !== 0;
             return (
               <div 

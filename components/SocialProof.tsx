@@ -3,34 +3,9 @@
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
-const reviews = [
-  {
-    id: 1,
-    name: "Youssef B.",
-    location: "Casablanca",
-    text: "Le pack est excellent. J'utilise le Nokia comme téléphone principal pour mon travail, la batterie dure une éternité. Les écouteurs sont l'ajout parfait.",
-    rating: 5,
-    date: "Il y a 2 jours"
-  },
-  {
-    id: 2,
-    name: "Amina H.",
-    location: "Rabat",
-    text: "Livraison super rapide et gratuite ! J'étais sceptique mais la qualité est au rendez-vous. Le son des écouteurs M10 est étonnamment clair et puissant.",
-    rating: 5,
-    date: "Il y a 4 jours"
-  },
-  {
-    id: 3,
-    name: "Karim T.",
-    location: "Marrakech",
-    text: "Prix incroyable pour un téléphone aussi résistant et les écouteurs inclus. Le format est très pratique. Je recommande vraiment ce pack à tous.",
-    rating: 5,
-    date: "Il y a une semaine"
-  }
-];
-
+import { useStoreContent } from "@/components/StoreProvider";
 export default function SocialProof() {
+  const content = useStoreContent();
   return (
     <section className="py-24 md:py-32 bg-slate-50 relative overflow-hidden" id="avis">
       {/* Background Decor */}
@@ -40,15 +15,15 @@ export default function SocialProof() {
         
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 font-display mb-6 tracking-tight">
-            Ils l'ont essayé et <span className="text-primary-500">approuvé.</span>
+            {content.socialProofTitle}
           </h2>
           <p className="text-xl text-slate-500 font-bold max-w-2xl mx-auto">
-            Rejoignez des milliers de clients satisfaits partout au Maroc.
+            {content.socialProofSubtitle}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {reviews.map((review, idx) => (
+          {content.reviews.map((review, idx) => (
             <motion.div 
               key={review.id}
               initial={{ opacity: 0, y: 50, filter: "blur(10px)", scale: 0.95 }}
