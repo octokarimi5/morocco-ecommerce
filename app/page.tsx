@@ -10,6 +10,7 @@ import FAQ from "@/components/FAQ";
 import CheckoutForm from "@/components/CheckoutForm";
 import GiftModal from "@/components/GiftModal";
 import { productData } from "@/lib/data";
+import { useStoreContent } from "@/components/StoreProvider";
 
 const WhatsAppIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 shrink-0">
@@ -19,6 +20,7 @@ const WhatsAppIcon = () => (
 
 export default function Home() {
   const [selectedOffer, setSelectedOffer] = useState(productData.offers[1].id);
+  const content = useStoreContent();
 
   return (
     <main className="min-h-screen bg-slate-50 relative flex flex-col pt-10">
@@ -32,12 +34,12 @@ export default function Home() {
         >
           {[...Array(12)].map((_, i) => (
             <span key={i} className="flex items-center gap-10">
-              <span className="flex items-center gap-2">🔥 OFFRE SPÉCIALE -50 MAD</span>
-              <span>•</span>
-              <span className="flex items-center gap-2">🚀 LIVRAISON RAPIDE GRATUITE</span>
-              <span>•</span>
-              <span className="flex items-center gap-2">🛡️ PAIEMENT À LA LIVRAISON</span>
-              <span>•</span>
+              {content.marqueeText.split("•").map((text, j) => (
+                <span key={j} className="flex items-center gap-5">
+                  <span className="flex items-center gap-2">{text.trim()}</span>
+                  <span>•</span>
+                </span>
+              ))}
             </span>
           ))}
         </motion.div>
@@ -46,10 +48,10 @@ export default function Home() {
       {/* Sticky Header with Logo and WhatsApp */}
       <header className="bg-white border-b border-slate-200 py-3 px-4 sm:px-6 sticky top-10 z-[90] flex justify-between items-center shadow-sm">
         <div className="font-display font-black text-2xl md:text-3xl tracking-tighter text-slate-900 cursor-pointer">
-          ARWA<span className="text-primary-500">.</span>
+          {content.storeName}
         </div>
         <a 
-          href={`https://wa.me/212600000000?text=Bonjour,%20je%20suis%20intéressé(e)%20par%20l'offre%20Nokia.`}
+          href={`https://wa.me/${content.whatsappNumber}?text=Bonjour,%20je%20suis%20intéressé(e)%20par%20l'offre.`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 bg-[#25D366] text-white px-4 py-2 md:px-5 md:py-2.5 rounded-xl font-black text-sm md:text-base border-b-4 border-[#128C7E] hover:border-b-0 hover:translate-y-1 active:border-b-0 active:translate-y-1 transition-all shadow-md group"
@@ -72,13 +74,13 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-slate-900 border-t-[6px] border-black text-slate-400 py-16 text-center">
         <div className="max-w-6xl mx-auto px-4">
-          <p className="font-black text-white text-3xl mb-6 tracking-tight">ARWA.</p>
+          <p className="font-black text-white text-3xl mb-6 tracking-tight">{content.storeName}</p>
           <div className="flex justify-center gap-6 mb-10 flex-wrap font-bold">
             <a href="#" className="hover:text-white transition">Contact</a>
             <a href="#" className="hover:text-white transition">Conditions d'utilisation</a>
             <a href="#" className="hover:text-white transition">Politique de confidentialité</a>
           </div>
-          <p className="text-sm font-medium">© {new Date().getFullYear()} Arwa Store. Tous droits réservés.</p>
+          <p className="text-sm font-medium">© {new Date().getFullYear()} {content.storeName}. Tous droits réservés.</p>
         </div>
       </footer>
 

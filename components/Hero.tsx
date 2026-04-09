@@ -2,10 +2,12 @@
 
 import { motion } from "framer-motion";
 import { productData } from "@/lib/data";
+import { useStoreContent } from "@/components/StoreProvider";
 import { Star, Truck, ShieldCheck, ShoppingCart, Flame, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Hero() {
+  const content = useStoreContent();
   const [viewers, setViewers] = useState(14);
   const [timeLeft, setTimeLeft] = useState(5400); // starts at 1h 30m
   const [stock, setStock] = useState(38);
@@ -57,8 +59,8 @@ export default function Hero() {
         >
           <div className="relative aspect-square md:aspect-[4/5] rounded-[32px] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] bg-white border border-slate-100 group">
             <img 
-              src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop" 
-              alt="Pack Nokia 105 et Ecouteurs M10" 
+              src={content.heroImage} 
+              alt="Produit de la boutique" 
               className="object-cover w-full h-full transform transition-transform duration-700 group-hover:scale-105 opacity-95"
             />
             {/* Live Viewed Badge */}
@@ -87,11 +89,11 @@ export default function Hero() {
           </div>
           
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 leading-[1.05] mb-5 font-display tracking-tight">
-            Restez connecté,<br/> <span className="text-primary-500">sans limites.</span>
+            {content.heroHeadline}
           </h1>
           
           <p className="text-lg text-slate-600 mb-8 font-medium max-w-lg leading-relaxed">
-            {productData.description}
+            {content.heroSubheadline}
           </p>
           
           {/* Add-on: High-Converting Urgency & Deal Box  */}
