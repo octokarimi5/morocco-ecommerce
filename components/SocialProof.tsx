@@ -33,9 +33,15 @@ export default function SocialProof() {
               whileHover={{ scale: 1.03, y: -5 }}
               className="bg-white p-8 md:p-10 rounded-[32px] shadow-xl border-[3px] border-slate-100 hover:border-primary-500 hover:shadow-2xl transition-all relative flex flex-col group cursor-pointer"
             >
-              <div className="flex gap-1 text-primary-500 mb-6 drop-shadow-sm">
+              <div className="flex gap-1 text-primary-500 mb-4 drop-shadow-sm">
                 {[...Array(review.rating)].map((_, i) => <Star key={i} size={20} fill="currentColor" />)}
               </div>
+              
+              {review.image && (
+                <div className="mb-6 rounded-2xl overflow-hidden border border-slate-100 shadow-sm relative aspect-video">
+                  <img src={review.image} alt="Review" className="w-full h-full object-cover" />
+                </div>
+              )}
               
               <p className="text-slate-700 font-bold text-lg leading-relaxed mb-8 flex-1">
                 "{review.text}"

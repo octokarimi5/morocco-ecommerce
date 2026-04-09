@@ -6,7 +6,7 @@ import { supabase } from "@/lib/supabase";
 export type FeatureData = { title: string; description: string; icon: string };
 export type StepData = { id: number; title: string; description: string; image: string; badge: string };
 export type FaqData = { q: string; a: string };
-export type ReviewData = { id: number; name: string; location: string; text: string; rating: number; date: string };
+export type ReviewData = { id: number; name: string; location: string; text: string; rating: number; date: string; image?: string };
 export type OfferData = { id: string; title: string; count: number; subtitle: string; price: number; badge: string; isBestValue: boolean };
 
 export type StoreContent = {
